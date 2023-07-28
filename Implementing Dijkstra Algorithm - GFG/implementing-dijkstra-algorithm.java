@@ -76,7 +76,6 @@ class Solution
         // Write your code here
         PriorityQueue<Pair> pq = new PriorityQueue<Pair>();
         int[] dis = new int[V];
-        boolean[] vis = new boolean[V];
         Arrays.fill(dis, Integer.MAX_VALUE);
         
         pq.add(new Pair(0, S));
@@ -86,20 +85,17 @@ class Solution
             Pair p = pq.remove();
             int node = p.node;
             int dist = p.dis;
-            // if(!vis[node]){
-                vis[node] = true;
-                for(int i=0; i<adj.get(node).size(); i++){
-                    int wt = adj.get(node).get(i).get(1);
-                    int v = adj.get(node).get(i).get(0);
-                    
-                    if(dis[v] > wt + dist){
-                        if(dis[v] != Integer.MAX_VALUE) 
-                            pq.remove(new Pair(dis[v], v)); 
-                        dis[v] = dist + wt;
-                        pq.add(new Pair(dis[v], v));
-                    }
+            for(int i=0; i<adj.get(node).size(); i++){
+                int wt = adj.get(node).get(i).get(1);
+                int v = adj.get(node).get(i).get(0);
+                
+                if(dis[v] > wt + dist){
+                    // if(dis[v] != Integer.MAX_VALUE) 
+                    //     pq.remove(new Pair(dis[v], v)); 
+                    dis[v] = dist + wt;
+                    pq.add(new Pair(dis[v], v));
                 }
-            // }
+            }
         }
         
         return dis;

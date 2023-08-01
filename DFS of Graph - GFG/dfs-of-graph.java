@@ -40,25 +40,17 @@ class Solution {
         // Code here
         
         ArrayList<Integer> res = new ArrayList<>();
-        boolean[] vis = new boolean[V+1];
-        
-        // res.add(0);
-        // vis[0] = true;
-        
-        dfs(res, 0, vis, adj);
-        
+        boolean[] vis = new boolean[V];
+        dfs(0, res, vis, adj);
         return res;
     }
     
-    public void dfs(ArrayList<Integer> res, int vertice, boolean[] vis, ArrayList<ArrayList<Integer>> adj){
+    public void dfs(int node, ArrayList<Integer> res, boolean[] vis, ArrayList<ArrayList<Integer>> adj){
+        vis[node] = true;
+        res.add(node);
         
-        vis[vertice] = true;
-        res.add(vertice);
-        
-        for(int it: adj.get(vertice)){
-            if(!vis[it]){
-                dfs(res, it, vis, adj);
-            }
+        for(Integer it: adj.get(node)){
+            if(!vis[it]) dfs(it, res, vis, adj);
         }
     }
 }
